@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -19,4 +19,6 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use('/', require('./routes/testRoutes'));
 app.use('/products', require('./routes/productRoutes'));
-app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+
+// Exportez l'application Express pour Vercel
+module.exports = app;
