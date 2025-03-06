@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URI, {
   });
 
 // Routes
-app.use('/', require('./routes/testRoutes'));
+app.use('/tests', require('./routes/testRoutes'));
 app.use('/products', require('./routes/productRoutes'));
 
 // Exportez l'application Express pour Vercel
