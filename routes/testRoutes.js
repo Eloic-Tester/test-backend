@@ -52,7 +52,17 @@ router.get('/search', async (req, res) => {
     const query = {};
     // Ajouter des critères de recherche dynamiques
     for (const [key, value] of Object.entries(req.query)) {
-      query[key] = value;
+      if (key === '_id') {
+        // Vérifier si l'ID est valide
+        if (!mongoose.Types.ObjectId.isValid(value)) {
+          return res.status(400).json({ message: 'Invalid ID format' });
+        }
+        // Convertir l'ID en ObjectId
+        query[key] = mongoose.Types.ObjectId(value);
+      } else {
+        // Ajouter d'autres critères de recherche
+        query[key] = value;
+      }
     }
 
     const tests = await Test.find(query);
